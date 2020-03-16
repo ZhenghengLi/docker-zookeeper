@@ -14,6 +14,7 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
         echo "maxClientCnxns=$ZOO_MAX_CLIENT_CNXNS"
         echo "standaloneEnabled=$ZOO_STANDALONE_ENABLED"
         echo "admin.enableServer=$ZOO_ADMINSERVER_ENABLED"
+        echo "admin.serverPort=$ZOO_ADMINSERVER_PORT"
         echo "quorumListenOnAllIPs=$ZOO_LISTEN_ALL"
     } >> "$CONFIG"
 
