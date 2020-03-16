@@ -21,10 +21,8 @@ ENV ZOO_CONF_DIR=/zookeeper/conf \
 RUN set -x \
 # install dependencies
 && apt-get update \
-&& apt-get install -y --no-install-recommends ca-certificates gosu gnupg netcat wget \
-# verify that gosu binary works
-&& gosu nobody true \
-# download
+&& apt-get install -y --no-install-recommends ca-certificates netcat wget gnupg \
+# download, check, and untar
 && mkdir -pv /opt/tmp\
 && cd /opt/tmp \
 && wget -q "${DISTRO_URL}" \
@@ -42,14 +40,16 @@ RUN set -x \
 && apt-get autoremove -y wget gnupg \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* \
-# set work directories
+# create data directories
 && mkdir -pv "${ZOO_CONF_DIR}" "${ZOO_DATA_DIR}" "${ZOO_DATA_LOG_DIR}" "${ZOO_LOG_DIR}" \
 && mv -v /opt/"${DISTRO_NAME}"/conf/* "${ZOO_CONF_DIR}"/
 
 COPY entrypoint.sh /scripts/
 
-## add default work user
 RUN set -x \
+# set root password for runtime debug
+&& echo "root:20180427" | chpasswd \
+## add default work user
 && groupadd zookeeper --gid=1000 \
 && useradd -m -g zookeeper --uid=1000 zookeeper \
 && chown zookeeper:zookeeper "${ZOO_DATA_LOG_DIR}" "${ZOO_DATA_DIR}" "${ZOO_LOG_DIR}" \
