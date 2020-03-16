@@ -13,7 +13,7 @@ ENV ZOO_CONF_DIR=/zookeeper/conf \
     ZOO_SYNC_LIMIT=2 \
     ZOO_AUTOPURGE_PURGEINTERVAL=0 \
     ZOO_AUTOPURGE_SNAPRETAINCOUNT=3 \
-    ZOO_MAX_CLIENT_CNXNS=60 \
+    ZOO_MAX_CLIENT_CNXNS=100 \
     ZOO_STANDALONE_ENABLED=true \
     ZOO_ADMINSERVER_ENABLED=true \
     ZOO_LISTEN_ALL=true
@@ -29,7 +29,7 @@ RUN set -x \
 && wget -q "${DISTRO_URL}.asc" \
 && wget -q "${DISTRO_URL}.sha512" \
 && sha512sum -c ${DISTRO_NAME}.tar.gz.sha512 \
-&& wget https://dist.apache.org/repos/dist/release/zookeeper/KEYS \
+&& wget -q https://dist.apache.org/repos/dist/release/zookeeper/KEYS \
 && gpg --import KEYS \
 && gpg --batch --verify "${DISTRO_NAME}.tar.gz.asc" "${DISTRO_NAME}.tar.gz" \
 && tar -xzf "${DISTRO_NAME}.tar.gz" \
