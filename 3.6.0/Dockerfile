@@ -61,4 +61,4 @@ ZOOCFGDIR="${ZOO_CONF_DIR}"
 USER zookeeper
 
 ENTRYPOINT [ "/bin/bash", "/scripts/entrypoint.sh" ]
-CMD ["bash"]
+CMD ["zkServer.sh", "start-foreground"]
