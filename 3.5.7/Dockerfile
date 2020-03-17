@@ -53,8 +53,8 @@ RUN set -x \
 ## add default work user
 && groupadd zookeeper --gid=1000 \
 && useradd -m -g zookeeper --uid=1000 zookeeper \
-&& chown zookeeper:zookeeper "${ZOO_DATA_LOG_DIR}" "${ZOO_DATA_DIR}" "${ZOO_LOG_DIR}" \
-&& chmod 777 "${ZOO_CONF_DIR}"
+&& chown -R zookeeper:zookeeper "${ZOO_DATA_LOG_DIR}" "${ZOO_DATA_DIR}" "${ZOO_CONF_DIR}" "${ZOO_LOG_DIR}" \
+&& chmod 777 "${ZOO_CONF_DIR}" "${ZOO_LOG_DIR}"
 
 ENV PATH=/opt/"${DISTRO_NAME}"/bin:$PATH \
 ZOOCFGDIR="${ZOO_CONF_DIR}"
