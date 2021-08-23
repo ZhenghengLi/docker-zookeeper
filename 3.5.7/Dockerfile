@@ -29,12 +29,8 @@ RUN set -x \
 && mkdir -pv /opt/tmp\
 && cd /opt/tmp \
 && wget -q "${DISTRO_URL}" \
-&& wget -q "${DISTRO_URL}.asc" \
 && wget -q "${DISTRO_URL}.sha512" \
 && sha512sum -c ${DISTRO_NAME}.tar.gz.sha512 \
-&& wget -q https://dist.apache.org/repos/dist/release/zookeeper/KEYS \
-&& gpg --import KEYS \
-&& gpg --batch --verify "${DISTRO_NAME}.tar.gz.asc" "${DISTRO_NAME}.tar.gz" \
 && tar -xzf "${DISTRO_NAME}.tar.gz" \
 && mv -v "${DISTRO_NAME}" .. \
 && cd .. \
